@@ -1,4 +1,9 @@
+import { useContext } from 'react'
+import CounterContext from '../CounterContext'
+
 const AnecdoteForm = ({ newAnecdoteMutation }) => {
+
+  const [notification, dispatch] = useContext(CounterContext)  
 
   const onCreate = (event) => {
     event.preventDefault()
@@ -10,6 +15,11 @@ const AnecdoteForm = ({ newAnecdoteMutation }) => {
 
     event.target.anecdote.value = ''
     console.log('new anecdote')
+
+    dispatch({ type: "SET_NOTIFICATION", payload: `You created '${content}'` })
+    setTimeout(() => {
+      dispatch({ type: "CLEAR_NOTIFICATION" })
+    }, 5000)       
 }
 
   return (
