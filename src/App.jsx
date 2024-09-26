@@ -26,7 +26,13 @@ const App = () => {
     mutationFn: createAnecdote,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['anecdotes'] })
-    }
+    },
+    onError: (error) => {
+      dispatch({ type: "SET_NOTIFICATION", payload: error.message })
+      setTimeout(() => {
+        dispatch({ type: "CLEAR_NOTIFICATION" })
+      }, 5000)
+    }    
   })
 
   const updateAnecdoteMutation = useMutation({
